@@ -38,6 +38,28 @@ def get_property(address):
 
         })
 
+@app.route('/property/<address>/comments/', methods=['POST'])
+def add_comment(address):
+    cn = sqlite3.connect('test.db')
+    cursor = cn.cursor()
+
+    address = address.strip().upper()
+    data = request.get_json()
+    
+    author = data.get("author", "").strip()
+    comment = data.get("comment", "").strip()
+    curr_time = datetime.now().isoformat()
+
+    cursor.execute("""
+                   INSERT INTO comments (address, author, comment, datetime) 
+                   VALUES (?, ?, ?, ?)
+                   """, (address, author, comment, curr_time))
+    cn.commit()
+    cn.close()
+
+    return jsonify({"message": "Comment added"}), 201
+
+
 
 
 if __name__ == '__main__':
