@@ -41,8 +41,8 @@ with open('datasets/Building_Violations_20250815.csv') as f:
                 VALUES(?,?,?,?,?,?)
                 """,
                 (
-                    row["ADDRESS"],
-                    row["VIOLATION DATE"],
+                    row["ADDRESS"].strip().upper(),
+                    d.isoformat(),
                     row["VIOLATION STATUS"],
                     row["VIOLATION DESCRIPTION"],
                     row["VIOLATION INSPECTOR COMMENTS"],
