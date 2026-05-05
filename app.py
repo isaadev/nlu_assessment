@@ -5,6 +5,9 @@ from datetime import datetime
 
 app = Flask(__name__)
 
+@app.route('/')
+def index():
+    return jsonify({"message": "API is running!"})
 
 @app.route('/property/<address>/', methods=['GET'])
 def get_property(address):
