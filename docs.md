@@ -15,11 +15,11 @@
     "TOTAL_VIOLATION_COUNT": int,
     "VIOLATIONS": [
         {
-            DATE: string,
-            CODE: string,
-            DESCRIPTION: string,
-            INSPECTOR_COMMENTS: string,
-            STATUS: string
+            "DATE": string,
+            "CODE": string,
+            "DESCRIPTION": string,
+            "INSPECTOR_COMMENTS": string,
+            "STATUS": string
         }   
     ]
         
@@ -42,24 +42,6 @@
     "author": string,
     "comment": string
 }
-**Response Code:** 200 OK
-**Response Payload:** 
-{
-   "LAST_VIOLATION_DATE": string,
-    "SCOFFLAW": boolean,
-    "TOTAL_VIOLATION_COUNT": int,
-    "VIOLATIONS": [
-        {
-            DATE: string,
-            CODE: string,
-            DESCRIPTION: string,
-            INSPECTOR_COMMENTS: string,
-            STATUS: string
-        }   
-    ]
-        
-
-}
 
 **Response Code:** 404 Not found
 **Response Payload:** 
@@ -72,5 +54,24 @@
 {
     "message": string
 }
+
+## Third endpoint
+**Request URL:** /property/scofflaws/violations?since=<yyyy-mm-dd>/
+**Request Method:** GET
+**Request Payload:** None
+
+**Response Code:** 400
+**Response Payload:**
+{
+    "error": string
+}
+
+**Response Code:** 200 OK
+**Response Payload:**
+[
+    string,
+    string,
+    ...
+]
 
 

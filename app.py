@@ -66,6 +66,7 @@ def get_recent_violations():
 
     since = request.args.get('since')
 
+    # not in spec, but for good measure -> handles case where since is missing or empty string
     if not since:
         cn.close()
         return jsonify({"error": "Missing 'since' query parameter"}), 400
