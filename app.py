@@ -59,6 +59,36 @@ def add_comment(address):
 
     return jsonify({"message": "Comment added"}), 201
 
+@app.route('/property/scofflaws/violations', methods=['GET'])
+def get_recent_violations():
+    cn = sqlite3.connect('test.db')
+    cursor = cn.cursor()
+
+    since = request.args.get('since')
+
+    if not since:
+        cn.close()
+        return jsonify({"error": "Missing 'since' query parameter"}), 400
+
+    try:
+        since_date = datetime.strptime(since, "%Y-%m-%d").date()
+        recent_violations = cursor.execute("""
+            SELECT DISTINCT v.address
+            FROM violations v
+            JOIN scofflaws s ON v.address = s.address
+            WHERE v.violation_date >= ?
+            ORDER BY v.violation_date DESC
+        """, (since_date.isoformat(),)).fetchall()
+
+        cn.close()
+    except (ValueError, TypeError):
+        cn.close()
+        abort(400, description="Invalid date format. Use YYYY-MM-DD.")
+
+    addresses = [v[0] for v in recent_violations]
+
+    return jsonify(addresses)
+
 
 
 
