@@ -51,3 +51,7 @@ python3.10 scripts/script.py
 ```bash
 python3.10 app.py
 ```
+
+## Live Demo
+
+https://web-production-e6c83.up.railway.app
