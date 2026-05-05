@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, abort, request
+import os
 import sqlite3
 from datetime import datetime
 
@@ -91,7 +92,5 @@ def get_recent_violations():
     return jsonify(addresses)
 
 
-
-
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)
